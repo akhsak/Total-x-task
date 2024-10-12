@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160268507071",
+    "project_id": "total-x-task-29b5e",
+    "storage_bucket": "total-x-task-29b5e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160268507071:android:bf517a9dd41d37ae33330a",
+        "android_client_info": {
+          "package_name": "com.example.totalx_task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_CRj91HSElOtV-t2pSyoqe9EncdxEm5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
