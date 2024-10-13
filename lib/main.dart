@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:totalx_task/controller/add_data_provider.dart';
+import 'package:totalx_task/controller/add_user_provider.dart';
 import 'package:totalx_task/controller/home_provider.dart';
 import 'package:totalx_task/firebase_options.dart';
 import 'package:totalx_task/view/home_page.dart';

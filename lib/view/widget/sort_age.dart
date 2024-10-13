@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:totalx_task/controller/home_provider.dart';
 
-class Sort extends StatelessWidget {
-  const Sort({
+class SortAge extends StatelessWidget {
+  const SortAge({
     super.key,
   });
 

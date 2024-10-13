@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:totalx_task/controller/home_provider.dart';
 import 'package:totalx_task/view/loginscreens/login_page.dart';
 import 'package:totalx_task/view/widget/alertbox.dart';
-import 'package:totalx_task/view/widget/sort_widget.dart';
+import 'package:totalx_task/view/widget/sort_age.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
                                   height: 200,
                                   child: Consumer<HomeProvider>(
                                     builder: (context, value, child) {
-                                      return Sort();
+                                      return SortAge();
                                     },
                                   ),
                                 );

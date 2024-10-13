@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:totalx_task/model/userlist_model.dart';
+import 'package:totalx_task/model/user_model.dart';
 
 class HomeProvider extends ChangeNotifier {
   String selectedAgeOption = "All";
@@ -29,8 +29,10 @@ class HomeProvider extends ChangeNotifier {
 
 // lazy loading
   Future<void> getdata() async {
-    final data =
-        await FirebaseFirestore.instance.collection("Items").limit(7).get();
+    final data = await FirebaseFirestore.instance
+        .collection("Upload_Items")
+        .limit(7)
+        .get();
     lastdocument = data.docs.last;
     userslist = data.docs.map((e) => UserModel.fromMap(e.data())).toList();
     notifyListeners();
@@ -38,7 +40,7 @@ class HomeProvider extends ChangeNotifier {
 
   Future<void> scrolldata() async {
     final data = await FirebaseFirestore.instance
-        .collection("Items")
+        .collection("Upload_Items")
         .startAfterDocument(lastdocument)
         .limit(2)
         .get();
@@ -49,7 +51,8 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> fetchalldata() async {
-    final data = await FirebaseFirestore.instance.collection("Items").get();
+    final data =
+        await FirebaseFirestore.instance.collection("Upload_Items").get();
     alldata.clear();
     alldata.addAll(data.docs.map((e) => UserModel.fromMap(e.data())).toList());
     notifyListeners();
@@ -81,7 +84,7 @@ class HomeProvider extends ChangeNotifier {
   Future<void> deleteUser(String name) async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection("Items")
+          .collection("Upload_Items")
           .where("name", isEqualTo: name)
           .get();
       querySnapshot.docs.forEach((doc) async {
