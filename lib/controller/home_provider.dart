@@ -107,5 +107,26 @@ class HomeProvider extends ChangeNotifier {
         user.name.toLowerCase().contains(search.toLowerCase()) ||
         user.age.toString().toLowerCase().contains(search.toLowerCase())));
     notifyListeners();
-  }
+  
+}
+
+int counter = 59;
+late Timer timer;
+
+//otp time period
+void startTimer() {
+  timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    if (counter > 0) {
+      counter--;
+       notifyListeners();
+    
+    } else {
+      timer.cancel();
+    }
+  });
+}
+
+void disposeTimer() {
+  timer.cancel();
+}
 }

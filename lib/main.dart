@@ -6,8 +6,8 @@ import 'package:totalx_task/controller/add_user_provider.dart';
 import 'package:totalx_task/controller/home_provider.dart';
 import 'package:totalx_task/firebase_options.dart';
 import 'package:totalx_task/view/home_page.dart';
-import 'package:totalx_task/view/loginscreens/login_page.dart';
-import 'package:totalx_task/view/loginscreens/otp.dart';
+import 'package:totalx_task/view/Auth_screens/login_page.dart';
+import 'package:totalx_task/view/Auth_screens/otp.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: auth.currentUser != null ? HomePage() : LoginPage(),
-        //  home: HomePage(),
+        // home: auth.currentUser != null ? HomePage() : LoginPage(),
+        home: OtpScreen(),
       ),
     );
   }

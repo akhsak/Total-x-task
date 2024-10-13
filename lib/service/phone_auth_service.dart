@@ -1,8 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:totalx_task/view/loginscreens/otp.dart';
+import 'package:totalx_task/view/Auth_screens/otp.dart';
 
 Future<void> submitPhoneNum(
     BuildContext context, TextEditingController phoneNumberController) async {
@@ -62,3 +63,5 @@ Future<void> submitPhoneNum(
     );
   }
 }
+
+ 

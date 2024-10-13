@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:totalx_task/controller/home_provider.dart';
-import 'package:totalx_task/view/loginscreens/login_page.dart';
+import 'package:totalx_task/view/Auth_screens/login_page.dart';
 import 'package:totalx_task/view/widget/alertbox.dart';
 import 'package:totalx_task/view/widget/sort_age.dart';
 

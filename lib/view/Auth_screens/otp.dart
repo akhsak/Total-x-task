@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:totalx_task/controller/home_provider.dart';
+import 'package:totalx_task/controller/home_provider.dart';
 import 'package:totalx_task/view/home_page.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -46,6 +49,7 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pro = Provider.of<HomeProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Colors.white,
       body: GestureDetector(
@@ -56,7 +60,7 @@ class OtpScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 250),
+                  padding: const EdgeInsets.only(bottom: 200),
                   child: Column(
                     children: [
                       Image.asset(
@@ -75,7 +79,7 @@ class OtpScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 15,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
@@ -133,6 +137,15 @@ class OtpScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 15),
+                      Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            '${pro.counter}Sec',
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 16,
+                            ),
+                          )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
