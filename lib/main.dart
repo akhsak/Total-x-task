@@ -1,23 +1,42 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:totalx_task/controller/add_data_provider.dart';
+import 'package:totalx_task/controller/home_provider.dart';
+import 'package:totalx_task/firebase_options.dart';
 import 'package:totalx_task/view/home_page.dart';
-import 'firebase_options.dart';
+import 'package:totalx_task/view/loginscreens/login_page.dart';
+import 'package:totalx_task/view/loginscreens/otp.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  var auth = FirebaseAuth.instance;
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => HomeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UserProvider(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: auth.currentUser != null ? HomePage() : LoginPage(),
+        // home: HomePage(),
+      ),
     );
   }
 }
