@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:totalx_task/service/phone_auth_service.dart';
 
-
 class LoginPage extends StatelessWidget {
   final TextEditingController _phoneNumberController = TextEditingController();
 

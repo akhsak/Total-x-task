@@ -29,10 +29,8 @@ class HomeProvider extends ChangeNotifier {
 
 // lazy loading
   Future<void> getdata() async {
-    final data = await FirebaseFirestore.instance
-        .collection("Upload_Items")
-        .limit(7)
-        .get();
+    final data =
+        await FirebaseFirestore.instance.collection("Items").limit(7).get();
     lastdocument = data.docs.last;
     userslist = data.docs.map((e) => UserModel.fromMap(e.data())).toList();
     notifyListeners();
@@ -40,7 +38,7 @@ class HomeProvider extends ChangeNotifier {
 
   Future<void> scrolldata() async {
     final data = await FirebaseFirestore.instance
-        .collection("Upload_Items")
+        .collection("Items")
         .startAfterDocument(lastdocument)
         .limit(2)
         .get();
@@ -51,8 +49,7 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> fetchalldata() async {
-    final data =
-        await FirebaseFirestore.instance.collection("Upload_Items").get();
+    final data = await FirebaseFirestore.instance.collection("Items").get();
     alldata.clear();
     alldata.addAll(data.docs.map((e) => UserModel.fromMap(e.data())).toList());
     notifyListeners();
@@ -84,7 +81,7 @@ class HomeProvider extends ChangeNotifier {
   Future<void> deleteUser(String name) async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection("Upload_Items")
+          .collection("Items")
           .where("name", isEqualTo: name)
           .get();
       querySnapshot.docs.forEach((doc) async {
@@ -109,135 +106,3 @@ class HomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
-// import 'dart:async';
-// import 'dart:developer';
-// import 'package:flutter/material.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:totalx_task/model/userlist_model.dart';
-
-// class HomeProvider extends ChangeNotifier {
-//   String selectedAgeOption = "All";
-//   TextEditingController searchController = TextEditingController();
-//   HomeProvider() {
-//     selectedAgeOption = '';
-//     getData();
-//     fetchAllData();
-
-//     scrollController.addListener(() {
-//       if (scrollController.position.pixels ==
-//           scrollController.position.maxScrollExtent) {
-//         scrollData();
-//       }
-//     });
-//   }
-
-//   final ScrollController scrollController = ScrollController();
-//   List<UserModel> usersList = [];
-//   List<UserModel> allData = [];
-//   List<UserModel> sortedData = [];
-//   bool isSorting = false;
-//   DocumentSnapshot? lastDocument;
-
-//   // Fetch initial data with lazy loading
-//   Future<void> getData() async {
-//     try {
-//       final data = await FirebaseFirestore.instance
-//           .collection("Upload_Items")
-//           .limit(7)
-//           .get();
-//       if (data.docs.isNotEmpty) {
-//         lastDocument = data.docs.last;
-//         usersList = data.docs.map((e) => UserModel.fromMap(e.data())).toList();
-//         notifyListeners();
-//       }
-//     } catch (e) {
-//       log("Error fetching initial data: $e");
-//     }
-//   }
-
-//   // Fetch more data when scrolling
-//   Future<void> scrollData() async {
-//     if (lastDocument == null) return;
-//     try {
-//       final data = await FirebaseFirestore.instance
-//           .collection("Upload_Items")
-//           .startAfterDocument(lastDocument!)
-//           .limit(2)
-//           .get();
-//       if (data.docs.isNotEmpty) {
-//         lastDocument = data.docs.last;
-//         usersList
-//             .addAll(data.docs.map((e) => UserModel.fromMap(e.data())).toList());
-//         notifyListeners();
-//       }
-//     } catch (e) {
-//       log("Error fetching more data: $e");
-//     }
-//   }
-
-//   // Fetch all data for sorting and searching
-//   Future<void> fetchAllData() async {
-//     try {
-//       final data =
-//           await FirebaseFirestore.instance.collection("Upload_Items").get();
-//       allData.clear();
-//       allData
-//           .addAll(data.docs.map((e) => UserModel.fromMap(e.data())).toList());
-//       notifyListeners();
-//     } catch (e) {
-//       log("Error fetching all data: $e");
-//     }
-//   }
-
-//   // Filter data based on selected age option
-//   List<UserModel> filterItems(String option) {
-//     selectedAgeOption = option;
-
-//     if (selectedAgeOption == 'Elder') {
-//       isSorting = true;
-//       sortedData = allData.where((item) => item.age >= 60).toList();
-//     } else if (selectedAgeOption == 'Younger') {
-//       isSorting = true;
-//       sortedData = allData.where((item) => item.age < 60).toList();
-//     } else if (selectedAgeOption == 'All') {
-//       isSorting = false;
-//       sortedData.clear();
-//     }
-//     notifyListeners();
-//     return sortedData;
-//   }
-
-//   // Delete user by name
-//   Future<void> deleteUser(String name) async {
-//     try {
-//       final querySnapshot = await FirebaseFirestore.instance
-//           .collection("Upload_Items")
-//           .where("name", isEqualTo: name)
-//           .get();
-//       for (var doc in querySnapshot.docs) {
-//         await doc.reference.delete();
-//       }
-//       // Refresh data after deletion
-//       await getData();
-//       await fetchAllData();
-//       notifyListeners();
-//     } catch (e) {
-//       log("Error deleting user: $e");
-//     }
-//   }
-
-//   // Search for users by name or age
-//   void search(String searchQuery) {
-//     if (searchQuery.isEmpty) {
-//       usersList = List.from(allData);
-//     } else {
-//       usersList = allData
-//           .where((user) =>
-//               user.name.toLowerCase().contains(searchQuery.toLowerCase()) ||
-//               user.age.toString().contains(searchQuery))
-//           .toList();
-//     }
-//     isSorting = false;
-//     notifyListeners();
-//   }
-// }

@@ -9,16 +9,15 @@ class UserModel {
     required this.image,
   });
 
-
-  factory UserModel.fromMap(Map<String, dynamic> map) {
+  factory UserModel.fromMap(Map<String, dynamic> json) {
     return UserModel(
-      name: map['name'] ?? '',
-      age: map['age'] ?? 0,
-      image: map['image'] ?? '',
+      name: json['name'] ?? '',
+      age: json['age'] ?? 0,
+      image: json['image'] ?? '',
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'age': age,

@@ -118,12 +118,14 @@ class AlertBoxWidget extends StatelessWidget {
                                             child: Text(
                                               "Gallery",
                                               style: TextStyle(
+                                                color: Colors.white,
                                                 fontWeight: FontWeight.w800,
                                               ),
                                             )),
                                         const SizedBox(
                                           height: 5,
                                         ),
+                                        // const Text(
                                       ],
                                     ),
                                     Column(
@@ -148,6 +150,7 @@ class AlertBoxWidget extends StatelessWidget {
                                             child: Text(
                                               "Camera",
                                               style: TextStyle(
+                                                // color: Colors.white,
                                                 fontWeight: FontWeight.w800,
                                               ),
                                             )),
@@ -300,3 +303,217 @@ class AlertBoxWidget extends StatelessWidget {
     );
   }
 }
+// import 'dart:io';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/material.dart';
+// import 'package:image_picker/image_picker.dart';
+// import 'package:provider/provider.dart';
+// import 'package:totalx_task/controller/add_data_provider.dart';
+// import 'package:totalx_task/controller/home_provider.dart';
+// import 'package:totalx_task/view/widget/save_dialogue.dart';
+
+// class AlertBoxWidget extends StatelessWidget {
+//   AlertBoxWidget({
+//     super.key,
+//   });
+
+//   final CollectionReference _items =
+//       FirebaseFirestore.instance.collection("Upload_Items");
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final userprovider = Provider.of<UserProvider>(context, listen: false);
+//     final homeprovider = Provider.of<HomeProvider>(context, listen: false);
+//     return AlertDialog(
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+//       title: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           const Text(
+//             "Add a new user",
+//             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+//           ),
+//           const SizedBox(height: 10),
+//           Center(
+//             child: Stack(
+//               children: [
+//                 Consumer<UserProvider>(
+//                   builder: (context, userprovider, _) {
+//                     return CircleAvatar(
+//                       radius: 35,
+//                       backgroundImage: userprovider.imageUrl.isEmpty
+//                           ? null
+//                           : FileImage(File(userprovider.imageUrl)),
+//                     );
+//                   },
+//                 ),
+//                 Positioned(
+//                   top: 32,
+//                   left: 12,
+//                   child: IconButton(
+//                     onPressed: () {
+//                       showModalBottomSheet(
+//                         context: context,
+//                         shape: const RoundedRectangleBorder(
+//                           borderRadius: BorderRadius.only(
+//                             topLeft: Radius.circular(20),
+//                             topRight: Radius.circular(20),
+//                           ),
+//                         ),
+//                         builder: (_) {
+//                           return SizedBox(
+//                             height: 200,
+//                             child: Column(
+//                               children: [
+//                                 const Padding(
+//                                   padding: EdgeInsets.all(15.0),
+//                                   child: Text(
+//                                     "Pick Image From",
+//                                     style: TextStyle(
+//                                       fontWeight: FontWeight.w900,
+//                                       fontSize: 20,
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 const SizedBox(height: 20),
+//                                 Row(
+//                                   mainAxisAlignment:
+//                                       MainAxisAlignment.spaceEvenly,
+//                                   children: [
+//                                     ElevatedButton.icon(
+//                                       onPressed: () async {
+//                                         userprovider
+//                                             .uploadImage(ImageSource.gallery);
+//                                         Navigator.pop(context);
+//                                       },
+//                                       icon: const Icon(Icons.photo),
+//                                       label: const Text("Gallery"),
+//                                     ),
+//                                     ElevatedButton.icon(
+//                                       onPressed: () async {
+//                                         userprovider
+//                                             .uploadImage(ImageSource.camera);
+//                                         Navigator.pop(context);
+//                                       },
+//                                       icon: const Icon(Icons.camera),
+//                                       label: const Text("Camera"),
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ],
+//                             ),
+//                           );
+//                         },
+//                       );
+//                     },
+//                     icon: const Icon(
+//                       Icons.camera_alt_outlined,
+//                       size: 20,
+//                       color: Colors.white,
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           const SizedBox(height: 10),
+//           const Text(
+//             "Name : ",
+//             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+//           ),
+//           const SizedBox(height: 5),
+//           TextFormField(
+//             controller: userprovider.nameController,
+//             decoration: InputDecoration(
+//               hintText: "Enter name",
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(10),
+//               ),
+//               contentPadding:
+//                   const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+//             ),
+//           ),
+//           const SizedBox(height: 10),
+//           const Text(
+//             "Age : ",
+//             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+//           ),
+//           const SizedBox(height: 5),
+//           TextFormField(
+//             controller: userprovider.ageController,
+//             decoration: InputDecoration(
+//               hintText: "Enter Age",
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(10),
+//               ),
+//               contentPadding:
+//                   const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+//             ),
+//           ),
+//           const SizedBox(height: 10),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.end,
+//             children: [
+//               ElevatedButton(
+//                 onPressed: () {
+//                   Navigator.pop(context);
+//                 },
+//                 child: const Text("Cancel"),
+//               ),
+//               const SizedBox(width: 10),
+//               ElevatedButton(
+//                 onPressed: () async {
+//                   if (userprovider.imageUrl.isEmpty) {
+//                     ScaffoldMessenger.of(context).showSnackBar(
+//                       const SnackBar(
+//                           content: Text("Please select and upload an image")),
+//                     );
+//                     return;
+//                   }
+//                   final String name = userprovider.nameController.text;
+//                   final int? age =
+//                       int.tryParse(userprovider.ageController.text);
+//                   if (name.isEmpty || age == null) {
+//                     ScaffoldMessenger.of(context).showSnackBar(
+//                       const SnackBar(
+//                           content: Text("Please provide a valid name and age")),
+//                     );
+//                     return;
+//                   }
+//                   showDialog(
+//                     context: context,
+//                     barrierDismissible: false,
+//                     builder: (BuildContext context) {
+//                       return const SaveDialogue();
+//                     },
+//                   );
+//                   try {
+//                     await _items.add({
+//                       "name": name,
+//                       "age": age,
+//                       "image": await userprovider.imagepick(),
+//                     });
+//                     Navigator.pop(context); // Close the dialog
+//                     Navigator.pop(context); // Close the AlertDialog
+//                     homeprovider.getData();
+//                     homeprovider.fetchAllData();
+//                     userprovider.nameController.clear();
+//                     userprovider.ageController.clear();
+//                     userprovider.image = '';
+//                     userprovider.imageUrl = '';
+//                   } catch (e) {
+//                     Navigator.pop(context); // Close the loading dialog
+//                     ScaffoldMessenger.of(context).showSnackBar(
+//                       SnackBar(content: Text("Failed to save data: $e")),
+//                     );
+//                   }
+//                 },
+//                 child: const Text("Save"),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
