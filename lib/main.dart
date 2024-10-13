@@ -34,8 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        // home: auth.currentUser != null ? HomePage() : LoginPage(),
-        home: OtpScreen(),
+        home: auth.currentUser != null ? HomePage() : LoginPage(),
       ),
     );
   }
