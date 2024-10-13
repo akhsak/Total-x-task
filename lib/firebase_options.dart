@@ -42,7 +42,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyBHfv57BVz0llLOpP2PkWPzLsYCJrXwhzU',
-    appId: '1:649853049104:web:1cf8067fcd7357e542ed95',
+    appId: '1:649853049104:web:1774d9fb9ddcd38f42ed95',
     messagingSenderId: '649853049104',
     projectId: 'task-2-1d55a',
     authDomain: 'task-2-1d55a.firebaseapp.com',
